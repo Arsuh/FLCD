@@ -1,0 +1,10 @@
+int a 
+int res 
+a = -6
+
+if(a < -1 & a>=-3){
+    print 1
+}
+else{
+    print 0
+}
