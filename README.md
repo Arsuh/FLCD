@@ -5,3 +5,6 @@ The symbol table (unique for identifiers and constants) is implemented as a hash
 
 ## Parser
 The parser splits the source code by every delimiter and constructs one symbol table for identifiers and constants.
+
+## PIF Generation
+The program internal form is represented as a linked list. The parses splits all tokens and looks for any lexical errors. If everything is fine the files ST.out and PIF.out are generated, otherwise an exception is thrown.

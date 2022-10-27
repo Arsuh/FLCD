@@ -1,0 +1,24 @@
+int a
+int i
+int ok
+
+a = 31
+i = 3
+ok = 1
+
+if(a < 2) {
+    ok = 0
+}
+else if(a > 2 & a % 2==0) {
+    ok = 0
+}
+else {
+    while(i < a){
+        if(a % i == 0){
+            ok = 0
+        }
+        i = i + 3
+    }
+}
+
+print ok
