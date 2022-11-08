@@ -1,5 +1,6 @@
 import re
 from hashTable import HashTable, LinkedList, Node
+from finiteAutomata import FA
 
 EXERCISE_PATH = './Exercises/ex1.txt'
 TOKEN_PATH = './Token.txt'
@@ -15,6 +16,9 @@ class Parser:
         self.reserved_tokens = []
         self.symbol_table = HashTable()
         self.pif = LinkedList()
+
+        self.fa_identifier = FA(fa_path='./FiniteAutomata/FA_identifier.in')
+        self.fa_integer = FA(fa_path='./FiniteAutomata/FA_integer_constant.in')
 
         self.st_out = './ST.out'
         self.pif_out = './PIF.out'
@@ -65,11 +69,17 @@ class Parser:
                     self.symbol_table.add(token)
 
                 # check if token is an identifier
-                if re.match(r'^[a-zA-z]\w*$', token):
+                #if re.match(r'^[a-zA-z]\w*$', token):
+                if self.fa_identifier.check(token):
                     self.pif.add(Node((token, self.token_table[IDENTIFIER], self.symbol_table[token].data[1])))
 
-                # check if token is a constant (string or int)
-                elif re.match(r"^'.*'$|^-*[0-9]+$", token):
+                # check if token is an integer constant
+                elif self.fa_integer.check(token):
+                    self.pif.add(Node((token, self.token_table[CONSTANT], self.symbol_table[token].data[1])))
+
+                # check if token is a string constant
+                #elif re.match(r"^'.*'$|^-*[0-9]+$", token):
+                elif re.match(r"^'.*'$", token):
                     self.pif.add(Node((token, self.token_table[CONSTANT], self.symbol_table[token].data[1])))
                 
                 else:
