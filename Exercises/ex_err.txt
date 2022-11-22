@@ -1,6 +1,6 @@
 int a 
 int res 
-a = -6 + 1
+a = -6 + 0001
 
 string str
 str = lalala'

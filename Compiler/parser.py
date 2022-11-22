@@ -2,7 +2,7 @@ import re
 from hashTable import HashTable, LinkedList, Node
 from finiteAutomata import FA
 
-EXERCISE_PATH = './Exercises/ex1.txt'
+EXERCISE_PATH = './Exercises/ex_err.txt'
 TOKEN_PATH = './Token.txt'
 
 CONSTANT = '0_CONST'

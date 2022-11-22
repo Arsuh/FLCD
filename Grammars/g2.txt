@@ -1,0 +1,18 @@
+Type Identifier IntegerConstant StringConstant Constant Block StatementList Statement DeclarationStatement AssignmentStatement IOStatement IfStatement WhileStatement Factor Term Expression Relation Condition
+[ ] { } ( ) ; <= >= == != + - * / = < > ! & | ' int string if while print
+Block
+Type -> int | string
+Constant -> IntegerConstant | StringConstant
+Block -> StatementList | { StatementList }
+StatementList -> Statement \n | Statement \n StatementList
+Statement -> DeclarationStatement | AssignmentStatement | IOStatement | IfStatement | WhileStatement
+DeclarationStatement -> Type Identifier
+IOStatement -> read Identifier | print Identifier | print Constant
+Factor -> Identifier | IntegerConstant | ( Expression )
+Term -> Factor | Term * Factor | Term / Factor | Term % Factor
+Expression -> Term | Expression + Term | Expression - Term
+Relation -> < | <= | == | != | >= | > | & | |
+Condition -> ( Expression Relation Expression )
+AssignmentStatement -> Identifier = Expression
+IfStatement -> if (Condition) Block | if (Condition) Block else Block
+WhileStatement -> while (Condition) Block
