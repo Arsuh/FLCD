@@ -1,7 +1,10 @@
 Type Identifier IntegerConstant StringConstant Constant Block StatementList Statement DeclarationStatement AssignmentStatement IOStatement IfStatement WhileStatement Factor Term Expression Relation Condition
-[ ] { } ( ) ; <= >= == != + - * / = < > ! & | ' int string if while print
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z [ ] { } ( ) ; <= >= == != + - * / = < > ! & | ' \n int string if while print read
 Block
 Type -> int | string
+Identifier -> A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | 0 Identifier | 1 Identifier | 2 Identifier | 3 Identifier | 4 Identifier | 5 Identifier | 6 Identifier | 7 Identifier | 8 Identifier | 9 Identifier | A Identifier | B Identifier | C Identifier | D Identifier | E Identifier | F Identifier | G Identifier | H Identifier | I Identifier | J Identifier | K Identifier | L Identifier | M Identifier | N Identifier | O Identifier | P Identifier | Q Identifier | R Identifier | S Identifier | T Identifier | U Identifier | V Identifier | W Identifier | X Identifier | Y Identifier | Z Identifier | a Identifier | b Identifier | c Identifier | d Identifier | e Identifier | f Identifier | g Identifier | h Identifier | i Identifier | j Identifier | k Identifier | l Identifier | m Identifier | n Identifier | o Identifier | p Identifier | q Identifier | r Identifier | s Identifier | t Identifier | u Identifier | v Identifier | w Identifier | x Identifier | y Identifier | z Identifier
+IntegerConstant -> - IntegerConstant | 0 IntegerConstant | 1 IntegerConstant | 2 IntegerConstant | 3 IntegerConstant | 4 IntegerConstant | 5 IntegerConstant | 6 IntegerConstant | 7 IntegerConstant | 8 IntegerConstant | 9 IntegerConstant | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+StringConstant -> ' A StringConstant ' | ' B StringConstant ' | ' C StringConstant ' | ' D StringConstant ' | ' E StringConstant ' | ' F StringConstant ' | ' G StringConstant ' | ' H StringConstant ' | ' I StringConstant ' | ' J StringConstant ' | ' K StringConstant ' | ' L StringConstant ' | ' M StringConstant ' | ' N StringConstant ' | ' O StringConstant ' | ' P StringConstant ' | ' Q StringConstant ' | ' R StringConstant ' | ' S StringConstant ' | ' T StringConstant ' | ' U StringConstant ' | ' V StringConstant ' | ' W StringConstant ' | ' X StringConstant ' | ' Y StringConstant ' | ' Z StringConstant ' | ' a StringConstant ' | ' b StringConstant ' | ' c StringConstant ' | ' d StringConstant ' | ' e StringConstant ' | ' f StringConstant ' | ' g StringConstant ' | ' h StringConstant ' | ' i StringConstant ' | ' j StringConstant ' | ' k StringConstant ' | ' l StringConstant ' | ' m StringConstant ' | ' n StringConstant ' | ' o StringConstant ' | ' p StringConstant ' | ' q StringConstant ' | ' r StringConstant ' | ' s StringConstant ' | ' t StringConstant ' | ' u StringConstant ' | ' v StringConstant ' | ' w StringConstant ' | ' x StringConstant ' | ' y StringConstant ' | ' z StringConstant '
 Constant -> IntegerConstant | StringConstant
 Block -> StatementList | { StatementList }
 StatementList -> Statement \n | Statement \n StatementList
@@ -14,5 +17,5 @@ Expression -> Term | Expression + Term | Expression - Term
 Relation -> < | <= | == | != | >= | > | & | |
 Condition -> ( Expression Relation Expression )
 AssignmentStatement -> Identifier = Expression
-IfStatement -> if (Condition) Block | if (Condition) Block else Block
-WhileStatement -> while (Condition) Block
+IfStatement -> if ( Condition ) Block | if ( Condition ) Block else Block
+WhileStatement -> while ( Condition ) Block
