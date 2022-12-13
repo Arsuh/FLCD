@@ -164,6 +164,21 @@ class Grammar:
             
         self.table[-1][-1] = Grammar.ACC
 
+    def get_move(self, x, y):
+        idx_x, idx_y = None, None
+
+        for i in range(1, len(self.terminals) + len(self.nonterminals) + 1):
+            if self.table[i][0] == x:
+                idx_x = i
+                break
+
+        for i in range(1, len(self.terminals) + 1):
+            if self.table[0][i] == y:
+                idx_y = i
+                break
+
+        return self.table[idx_x][idx_y]
+
     def put(self, x, y, data):
         idx_x, idx_y = None, None
 
@@ -185,6 +200,8 @@ class Grammar:
     def ll1_table(self):
         self._init_ll1_table()
 
+        i = 1
+
         for name, production in self.productions.items():
             for idx, elem in enumerate(production):
                 if elem == Grammar.EPSILON:
@@ -192,7 +209,7 @@ class Grammar:
 
                     for f in _follow:
                         y = f if f != Grammar.EPMTY else Grammar.EPSILON
-                        self.put(name, y, (name, idx))
+                        self.put(name, y, (name, idx, i))
 
                 else:
                     if elem[0] in self.terminals:
@@ -201,7 +218,8 @@ class Grammar:
                         _first = self.first_table[elem[0]]
 
                     for f in _first:
-                        self.put(name, f, (name, idx))
+                        self.put(name, f, (name, idx, i))
+                i += 1
 
     def save_table(self):
         with open('./ParserOutput.txt', 'w') as f:
