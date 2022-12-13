@@ -1,6 +1,6 @@
 from pprint import pprint
 
-FILE = './Grammars/g2.txt'
+FILE = './Grammars/g4.txt'
 
 class Grammar:
     EPSILON = 'EPSILON'
@@ -203,6 +203,10 @@ class Grammar:
                     for f in _first:
                         self.put(name, f, (name, idx))
 
+    def save_table(self):
+        with open('./ParserOutput.txt', 'w') as f:
+            pprint(self.table, f)
+
 if __name__ == '__main__':
     g = Grammar(file=FILE)
     g.read()
@@ -219,5 +223,6 @@ if __name__ == '__main__':
     print(f'Follow: {g.follow_table}')
 
     g.ll1_table()
+    g.save_table()
     print('Table:')
     pprint(g.table)

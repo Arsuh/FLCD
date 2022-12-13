@@ -1,0 +1,12 @@
+[[None, '+', '*', '(', ')', 'a', 'EPSILON'],
+ ['S', None, None, ('S', 0), None, ('S', 0), None],
+ ['A', ('A', 0), None, None, ('A', 1), None, ('A', 1)],
+ ['B', None, None, ('B', 0), None, ('B', 0), None],
+ ['C', ('C', 1), ('C', 0), None, ('C', 1), None, ('C', 1)],
+ ['D', None, None, ('D', 0), None, ('D', 1), None],
+ ['+', 'POP', None, None, None, None, None],
+ ['*', None, 'POP', None, None, None, None],
+ ['(', None, None, 'POP', None, None, None],
+ [')', None, None, None, 'POP', None, None],
+ ['a', None, None, None, None, 'POP', None],
+ ['EPSILON', None, None, None, None, None, 'ACC']]
