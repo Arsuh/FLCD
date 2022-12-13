@@ -1,8 +1,13 @@
-FILE = './Grammars/g4.txt'
+from pprint import pprint
+
+FILE = './Grammars/g2.txt'
 
 class Grammar:
     EPSILON = 'EPSILON'
     EPMTY = '$'
+    ERROR = None
+    POP = 'POP'
+    ACC = 'ACC'
 
     def __init__(self, file):
         self.file = file
@@ -141,6 +146,63 @@ class Grammar:
 
         return follow_set
 
+    def _init_ll1_table(self):
+        self.table = [[None for _ in range(len(self.terminals) + 1)] for _ in range(len(self.nonterminals) + len(self.terminals) + 1)]
+        
+        for i in range(len(self.terminals)):
+            self.table[0][i+1] = self.terminals[i]
+
+        for i in range(len(self.nonterminals)):
+            self.table[i+1][0] = self.nonterminals[i]
+
+        j = 1
+        for i in range(len(self.nonterminals) + 1, len(self.nonterminals) + len(self.terminals) + 1):
+            self.table[i][0] = self.terminals[i - len(self.nonterminals) - 1]
+
+            self.table[i][j] = Grammar.POP
+            j += 1
+            
+        self.table[-1][-1] = Grammar.ACC
+
+    def put(self, x, y, data):
+        idx_x, idx_y = None, None
+
+        for i in range(1, len(self.terminals) + len(self.nonterminals) + 1):
+            if self.table[i][0] == x:
+                idx_x = i
+                break
+
+        for i in range(1, len(self.terminals) + 1):
+            if self.table[0][i] == y:
+                idx_y = i
+                break
+
+        # if self.table[idx_x][idx_y] is not None:
+        #     raise Exception('Invalid grammar!')
+
+        self.table[idx_x][idx_y] = data
+
+    def ll1_table(self):
+        self._init_ll1_table()
+
+        for name, production in self.productions.items():
+            for idx, elem in enumerate(production):
+                if elem == Grammar.EPSILON:
+                    _follow = self.follow_table[name]
+
+                    for f in _follow:
+                        y = f if f != Grammar.EPMTY else Grammar.EPSILON
+                        self.put(name, y, (name, idx))
+
+                else:
+                    if elem[0] in self.terminals:
+                        _first = (elem[0])
+                    else:
+                        _first = self.first_table[elem[0]]
+
+                    for f in _first:
+                        self.put(name, f, (name, idx))
+
 if __name__ == '__main__':
     g = Grammar(file=FILE)
     g.read()
@@ -148,10 +210,14 @@ if __name__ == '__main__':
     # print(f'Nonterminals: {g.nonterminals}')
     # print(f'Terminals: {g.terminals}')
     # print(f'Start: {g.start}')
-    # print(f'Productions: {g.productions}')
+    print(f'Productions: {g.productions}')
     # print(f'Productions for nonterminal Statement: {g.productions_for_nonterminal("A")}')
     # print(f'CFG check: {g.check()}')
 
     g.first_follow()
     print(f'First: {g.first_table}')
     print(f'Follow: {g.follow_table}')
+
+    g.ll1_table()
+    print('Table:')
+    pprint(g.table)

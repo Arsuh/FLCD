@@ -1,9 +1,11 @@
-S B C D E F
-a h c b g f EPSILON
+S A B C D
++ * ( ) a EPSILON
 S
-S -> a B D h
-B -> c C
-C -> b C | EPSILON
-D -> E F
-E -> g | EPSILON
-F -> f | EPSILON
+S -> B A
+A -> + B A
+A -> EPSILON
+B -> D C
+C -> * D C
+C -> EPSILON
+D -> ( S )
+D -> a
