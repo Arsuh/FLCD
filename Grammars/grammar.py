@@ -1,4 +1,4 @@
-FILE = './Grammars/g3.txt'
+FILE = './Grammars/g4.txt'
 
 class Grammar:
     EPSILON = 'EPSILON'
@@ -55,8 +55,6 @@ class Grammar:
         for nonterminal in self.nonterminals:
             self.first_table[nonterminal] = self.first(nonterminal)
         
-        self.follow_table[self.start] = set()
-        self.follow_table[self.start].add(Grammar.EPMTY)
         for nonterminal in self.nonterminals:
             self.follow_table[nonterminal] = self.follow(nonterminal)
 
@@ -98,26 +96,31 @@ class Grammar:
 
         if nonterminal == self.start:
             follow_set.add(Grammar.EPMTY)
-            return follow_set
             
 
         for name, production in self.productions.items():
             for elem in production:
-                if nonterminal in elem:
-                    elements = elem.split(' ')
+
+                elements = elem.split(' ')
+                if nonterminal in elements:
                     index = elements.index(nonterminal)
 
                     if index == len(elements) - 1:
-                        returned_follow_set = self.follow(name)
+                        if nonterminal != name:
+                            returned_follow_set = self.follow(name)
 
-                        for elem in returned_follow_set:
-                            follow_set.add(elem)
+                            for elem in returned_follow_set:
+                                follow_set.add(elem)
 
                     elif elements[index + 1] in self.terminals:
                         follow_set.add(elements[index + 1])
 
                     elif elements[index + 1] in self.nonterminals:
                         for i in range(index + 1, len(elements)):
+                            if elements[i] in self.terminals:
+                                follow_set.add(elements[i])
+                                break
+
                             _first = self.first_table[elements[i]]
 
                             for f in _first:
@@ -135,60 +138,6 @@ class Grammar:
 
                     else:
                         raise Exception('Incorrect grammar!')
-            
-        # for production in self.productions[nonterminal]:
-        #     if nonterminal != production:
-        #         elements = production.split(' ')
-        #         last = elements[-1]
-
-        #         if last in self.terminals:
-        #             follow_set.add(last)
-                
-        #         elif last == nonterminal:
-        #             if elements[-2] not in self.terminals:
-        #                 returned_follow_set = self.follow(elements[-2])
-
-        #                 for elem in returned_follow_set:
-        #                     follow_set.add(elem)
-
-        #         elif last in self.nonterminals:
-        #             returned_follow_set = self.follow(last)
-
-        #             for elem in returned_follow_set:
-        #                 follow_set.add(elem)
-
-        #         else:
-        #             raise Exception('Incorrect grammar!')
-
-        # for production in self.productions:
-        #     for element in production:
-        #         if nonterminal != element and nonterminal in element:
-        #             element_list = element.split(' ')
-
-        #             index = len(element_list) - 1
-        #             while nonterminal != element_list[index]:
-        #                 index -= 1
-
-        #             if index == len(element_list) - 1:
-        #                 returned_follow_set = self.follow(element_list[index - 1])
-
-        #                 for elem in returned_follow_set:
-        #                     follow_set.add(elem)
-
-        #             elif element_list[index - 1] in self.terminals:
-        #                 follow_set.add(element_list[index - 1])
-
-        #             elif element_list[index - 1] in self.nonterminals:
-        #                 returned_follow_set = self.follow(element_list[index + 1])
-
-        #                 for elem in returned_follow_set:
-        #                     follow_set.add(elem)
-
-        #             else:
-        #                 raise Exception('Incorrect grammar!')
-
-        # if len(follow_set) == 0:
-        #     follow_set.add(Grammar.LAST)
 
         return follow_set
 
