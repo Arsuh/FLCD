@@ -5,10 +5,9 @@ a = -6 + 1
 string str
 str = 'lalala'
 
-
-if(a < -1 & a>=-3){
+if( a < -1 & a >= -3) {
     print 1
 }
-else{
+else {
     print 0
 }

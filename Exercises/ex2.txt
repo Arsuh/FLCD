@@ -1,14 +1,11 @@
 int a
 int s
 int aux
-
 a = 123456
 s = 0
-
 while(a > 0){
     aux = a % 10
     s = s + aux
     a = a / 10
 }
-
 print s
